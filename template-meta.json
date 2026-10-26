@@ -5,5 +5,6 @@
   "category": "Storage",
   "image": "https://raw.githubusercontent.com/two-workspaces/nocodb/main/icon.svg",
   "card_desc": "NocoDB: turn Postgres into a collaborative spreadsheet with grid, kanban, form and calendar views, plus REST APIs. Runs NocoDB 2026.10.0 on its own Postgres, with the super admin created on first boot.",
-  "id": "ce0367e0-39bb-4496-b5e1-62e91cd81633"
+  "id": "ce0367e0-39bb-4496-b5e1-62e91cd81633",
+  "published": true
 }
