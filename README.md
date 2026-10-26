@@ -8,10 +8,11 @@
 
 The stack is two services: NocoDB and Postgres.
 
-- **Upstream's image, unchanged.** NocoDB runs the official `nocodb/nocodb` image at a fixed release (2026.10.0), not `latest`. There is no wrapper: everything is configured with NocoDB's own environment variables. Upgrading means changing the image tag.
+- **Upstream's image, unchanged.** NocoDB runs the official `nocodb/nocodb` image at a fixed release (2026.10.0), not `latest`. There is no wrapper: everything is configured with environment variables. Upgrading means changing the image tag.
 - **Super admin ready on first boot.** NocoDB creates the super admin from `NC_ADMIN_EMAIL` and the generated `NC_ADMIN_PASSWORD`, so the sign-up page never hands the instance to whoever opens it first.
 - **Postgres 17 for metadata and data.** NocoDB keeps its own metadata (bases, views, users) in Postgres, and new bases you create store their tables there too.
 - **Attachments on a volume.** Files you upload to attachment fields are kept in NocoDB's data directory on its own volume, so they survive redeploys.
+- **Lean by default.** NocoDB's JavaScript heap is capped at 512 MB, which keeps a fresh instance near 0.5 GB of RAM.
 - **Healthchecked.** Railway's healthcheck calls `/api/v1/health`, which answers once NocoDB has started and connected to Postgres.
 
 ## Common Use Cases
@@ -49,7 +50,7 @@ The stack is two services: NocoDB and Postgres.
 
 **Back up.** Postgres holds metadata and base data, and the NocoDB volume holds attachments.
 
-**Resources.** A fresh deploy uses about 300 MB of RAM for NocoDB and about 50 MB for Postgres.
+**Resources.** A fresh deploy uses about 520 MB of RAM for NocoDB and about 75 MB for Postgres, so it needs the Hobby plan or above. `NODE_OPTIONS=--max-old-space-size=512` caps NocoDB's heap; without it NocoDB idles near 0.9 GB. Raise the cap for big CSV imports or many users.
 
 ## Why Deploy NocoDB on Railway?
 

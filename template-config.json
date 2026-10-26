@@ -55,6 +55,11 @@
      "defaultValue": "8080",
      "description": "HTTP port NocoDB listens on - leave as is.",
      "isOptional": false
+    },
+    "NODE_OPTIONS": {
+     "defaultValue": "--max-old-space-size=512",
+     "description": "Caps NocoDB's JavaScript heap at 512 MB so it idles at about 0.5 GB instead of 0.9 GB. Raise it (e.g. 1024) for big imports or many users.",
+     "isOptional": false
     }
    }
   },
