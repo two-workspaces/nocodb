@@ -1,0 +1,111 @@
+{
+ "buckets": {},
+ "services": {
+  "7ac41f81-eea2-4e2a-a763-7d49244e5e1e": {
+   "icon": "https://raw.githubusercontent.com/two-workspaces/nocodb/main/icon.svg",
+   "name": "NocoDB",
+   "build": {},
+   "deploy": {
+    "startCommand": null,
+    "healthcheckPath": "/api/v1/health",
+    "healthcheckTimeout": 600,
+    "restartPolicyType": "ON_FAILURE",
+    "restartPolicyMaxRetries": 10
+   },
+   "source": {
+    "image": "nocodb/nocodb:2026.10.0"
+   },
+   "networking": {
+    "serviceDomains": {
+     "<hasDomain>": {}
+    }
+   },
+   "volumeMounts": {
+    "a05e92b5-51c8-4b8a-b36d-a945eedd5c63": {
+     "mountPath": "/usr/app/data"
+    }
+   },
+   "variables": {
+    "NC_ADMIN_EMAIL": {
+     "defaultValue": "",
+     "description": "Email for the super admin account, created on boot. You sign in with it.",
+     "isOptional": false
+    },
+    "NC_ADMIN_PASSWORD": {
+     "defaultValue": "${{secret(24, \"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\")}}",
+     "description": "Super admin password, generated at deploy time. NocoDB applies it on every boot, so change it here rather than in the app.",
+     "isOptional": false
+    },
+    "NC_PUBLIC_URL": {
+     "defaultValue": "https://${{RAILWAY_PUBLIC_DOMAIN}}",
+     "description": "Public URL NocoDB uses in links, emails and shared views. Change it after adding a custom domain.",
+     "isOptional": false
+    },
+    "NC_DB": {
+     "defaultValue": "pg://${{Postgres.RAILWAY_PRIVATE_DOMAIN}}:5432?u=${{Postgres.POSTGRES_USER}}&p=${{Postgres.POSTGRES_PASSWORD}}&d=${{Postgres.POSTGRES_DB}}",
+     "description": "Postgres connection for NocoDB's metadata and the default base (private network)",
+     "isOptional": false
+    },
+    "NC_AUTH_JWT_SECRET": {
+     "defaultValue": "${{secret(48, \"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\")}}",
+     "description": "Signs sign-in tokens. Changing it signs everyone out.",
+     "isOptional": false
+    },
+    "PORT": {
+     "defaultValue": "8080",
+     "description": "HTTP port NocoDB listens on - leave as is.",
+     "isOptional": false
+    }
+   }
+  },
+  "0af03940-09b6-45f0-93e5-71bc26a76630": {
+   "icon": "https://devicons.railway.app/i/postgresql.svg",
+   "name": "Postgres",
+   "build": {},
+   "deploy": {
+    "startCommand": null,
+    "healthcheckPath": null,
+    "restartPolicyType": "ON_FAILURE",
+    "restartPolicyMaxRetries": 10
+   },
+   "source": {
+    "image": "postgres:17.11-alpine"
+   },
+   "networking": {
+    "serviceDomains": {}
+   },
+   "volumeMounts": {
+    "6d0c8d19-73b0-4a7f-867e-8c773f632de6": {
+     "mountPath": "/var/lib/postgresql/data"
+    }
+   },
+   "variables": {
+    "POSTGRES_DB": {
+     "defaultValue": "nocodb",
+     "description": "Database name",
+     "isOptional": false
+    },
+    "POSTGRES_USER": {
+     "defaultValue": "nocodb",
+     "description": "Database user",
+     "isOptional": false
+    },
+    "POSTGRES_PASSWORD": {
+     "defaultValue": "${{secret(32, \"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\")}}",
+     "description": "Auto-generated database password",
+     "isOptional": false
+    },
+    "PGDATA": {
+     "defaultValue": "/var/lib/postgresql/data/pgdata",
+     "description": "Data subdirectory - keeps Postgres happy on Railway volumes",
+     "isOptional": false
+    },
+    "RAILWAY_DEPLOYMENT_DRAINING_SECONDS": {
+     "defaultValue": "60",
+     "description": "Time for Postgres to shut down cleanly on redeploy",
+     "isOptional": false
+    }
+   }
+  }
+ }
+}

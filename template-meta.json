@@ -1,0 +1,8 @@
+{
+  "name": "NocoDB | Open-Source Airtable Alternative with Postgres",
+  "short_name": "NocoDB Production",
+  "description": "Spreadsheet-style databases for your team, admin ready on first boot",
+  "category": "Storage",
+  "image": "https://raw.githubusercontent.com/two-workspaces/nocodb/main/icon.svg",
+  "card_desc": "NocoDB: turn Postgres into a collaborative spreadsheet with grid, kanban, form and calendar views, plus REST APIs. Runs NocoDB 2026.10.0 on its own Postgres, with the super admin created on first boot."
+}
