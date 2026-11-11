@@ -2,13 +2,13 @@
 
 [![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/new/template/nocodb-production?referralCode=sLjDXb&utm_medium=integration&utm_source=button&utm_campaign=nocodb-production)
 
-[NocoDB](https://nocodb.com/) is an open-source Airtable alternative. It turns a database into a collaborative spreadsheet: tables with grid, kanban, gallery, form and calendar views, linked records, lookups and formulas, comments, automations, and a REST API for every table. This template runs NocoDB 2026.10.0 from the official image on its own Postgres 17, with the super admin account created on first boot.
+[NocoDB](https://nocodb.com/) is an open-source Airtable alternative. It turns a database into a collaborative spreadsheet: tables with grid, kanban, gallery, form and calendar views, linked records, lookups and formulas, comments, automations, and a REST API for every table. This template runs NocoDB 2026.10.1 from the official image on its own Postgres 17, with the super admin account created on first boot.
 
 ## About Hosting NocoDB
 
 The stack is two services: NocoDB and Postgres.
 
-- **Upstream's image, unchanged.** NocoDB runs the official `nocodb/nocodb` image at a fixed release (2026.10.0), not `latest`. There is no wrapper: everything is configured with environment variables. Upgrading means changing the image tag.
+- **Upstream's image, unchanged.** NocoDB runs the official `nocodb/nocodb` image at a fixed release (2026.10.1), not `latest`. There is no wrapper: everything is configured with environment variables. Upgrading means changing the image tag.
 - **Super admin ready on first boot.** NocoDB creates the super admin from `NC_ADMIN_EMAIL` and the generated `NC_ADMIN_PASSWORD`, so the sign-up page never hands the instance to whoever opens it first.
 - **Postgres 17 for metadata and data.** NocoDB keeps its own metadata (bases, views, users) in Postgres, and new bases you create store their tables there too.
 - **Attachments on a volume.** Files you upload to attachment fields are kept in NocoDB's data directory on its own volume, so they survive redeploys.

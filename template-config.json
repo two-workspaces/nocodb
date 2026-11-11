@@ -13,7 +13,7 @@
     "restartPolicyMaxRetries": 10
    },
    "source": {
-    "image": "nocodb/nocodb:2026.10.0"
+    "image": "nocodb/nocodb:2026.10.1"
    },
    "networking": {
     "serviceDomains": {
